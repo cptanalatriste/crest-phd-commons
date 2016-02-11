@@ -210,4 +210,13 @@ public class Game implements IGame {
 		this.maxCapacity = maxCapacity;
 	}
 
+	/**
+	 * @return the maxCapacity
+	 */
+	public int getMaxCapacity() {
+		return maxCapacity;
+	}
+	
+	
+
 }
