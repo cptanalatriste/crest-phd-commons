@@ -31,7 +31,7 @@ public class LoadCommand extends Command {
 
   @Override
   public String asString() {
-    return "";
+    return super.getDrone().getId()+" "+super.getCommandName()+" "+getWarehouse().getId()+" "+getProductType().getId()+" "+getProductQuantity();
   }
 
   @Override
