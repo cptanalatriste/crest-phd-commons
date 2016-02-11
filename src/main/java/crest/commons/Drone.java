@@ -11,6 +11,7 @@ public class Drone {
   private final int identifier;
   private int xPos;
   private int yPos;
+  private int currentTurn;
 
   private List<Command> commands;
   private int maxCapacity;
@@ -21,7 +22,6 @@ public class Drone {
     setYPos(x);
     setYPos(y);
   }
- 
 
   public int getId() {
     return getIdentifier();
@@ -65,6 +65,14 @@ public class Drone {
 
   public int getMaxCapacity() {
     return maxCapacity;
+  }
+
+  public int getCurrentTurn() {
+    return currentTurn;
+  }
+
+  public void setCurrentTurn(int currentTurn) {
+    this.currentTurn = currentTurn;
   }
 
   public void setMaxCapacity(int maxCapacity) {
