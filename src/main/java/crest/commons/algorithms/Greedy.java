@@ -52,6 +52,7 @@ public class Greedy {
         int[] productNum=new int[order.numItems];
         while(leftProducts>0){
             numBins++;
+            currLoad=0;
             for(int i=0; i<order.numItems; i++){
                 productID[i]=-1;
                 productNum[i]=0;
@@ -138,7 +139,7 @@ public class Greedy {
                 }
             }
             commands.addAll(delivery(game, game.getDrone(droneID), game.getWareHouse(0), orders[leastIndex], game.getMaxCapacity()));
-            flags[i]=false;
+            flags[leastIndex]=false;
             orderLeft--;
         }
         return commands;
