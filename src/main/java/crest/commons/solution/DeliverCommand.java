@@ -31,8 +31,7 @@ public class DeliverCommand extends Command {
 
   @Override
   public String asString() {
-    // TODO Auto-generated method stub
-    return null;
+    return super.getDrone().getId()+" "+super.getCommandName()+" "+getOrder().getId()+" "+getProductType().getId()+getQuantity();
   }
 
   @Override

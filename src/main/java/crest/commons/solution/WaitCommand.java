@@ -17,8 +17,7 @@ public class WaitCommand extends Command {
 
   @Override
   public String asString() {
-    // TODO Auto-generated method stub
-    return null;
+    return super.getDrone().getId()+" "+super.getCommandName()+" "+getTurns();
   }
 
   @Override

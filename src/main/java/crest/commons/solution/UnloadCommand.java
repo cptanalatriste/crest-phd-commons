@@ -16,7 +16,7 @@ public class UnloadCommand extends Command {
 
   @Override
   public String asString() {
-    return null;
+    return super.getDrone().getId()+" "+super.getCommandName()+" "+getWarehouse().getId()+" "+getProductType().getId()+" "+getProductQuantity();
   }
 
   @Override
