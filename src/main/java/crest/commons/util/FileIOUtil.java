@@ -143,6 +143,9 @@ public class FileIOUtil {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
+		problem.syncVar();
 		return problem;
 
 	}
