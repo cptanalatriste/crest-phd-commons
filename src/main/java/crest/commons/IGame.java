@@ -32,4 +32,9 @@ public interface IGame {
 	
 	public Set<Drone> getDrones();
 	
+	public Drone getDrone(int id);
+	public Order getOrder(int id);
+	public ProductType getProductType(int id);
+	public WareHouse getWareHouse(int id);
+	
 }

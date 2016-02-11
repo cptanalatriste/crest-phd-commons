@@ -8,4 +8,12 @@ public class ProductType {
 		id=prodId;
 		weight=prodWeight;
 	}
+	
+	public int getId(){
+		return id;
+	}
+	
+	public int getWeight(){
+		return weight;
+	}
 }
