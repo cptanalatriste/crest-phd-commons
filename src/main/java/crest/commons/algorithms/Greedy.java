@@ -4,10 +4,14 @@
  */
 package crest.commons.algorithms;
 
+import crest.commons.*;
+
 /**
  *
  * @author J
  */
 public class Greedy {
-    
+    public static void greedy(Game game){
+        // determine 
+    }
 }
