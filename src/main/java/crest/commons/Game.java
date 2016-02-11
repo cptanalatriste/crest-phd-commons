@@ -5,6 +5,24 @@ import java.util.Set;
 
 public class Game implements IGame {
 	
+	/*
+	 * Variables
+	 * @author: Lingbo
+	 */
+	public int width;
+	public int height;
+	public int maxPlayload;
+	public int numTypesProducts;
+	public int[] productTypes;
+	public int numWarehouses;
+	public WareHouse[] wareHouses;
+	public int numOrders;
+	public Order[] orders_array;
+	public Drone[] drones_array;
+	public int num_drones;
+	
+	
+	
 	private int gameWidth=-1;
 	private int gameHeight=-1;
 	private int maxTurns=0;

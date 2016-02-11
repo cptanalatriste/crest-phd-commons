@@ -1,6 +1,7 @@
 package crest.commons.solution;
 
 import crest.commons.Drone;
+import crest.commons.IGame;
 import crest.commons.ProductType;
 import crest.commons.WareHouse;
 
@@ -38,7 +39,7 @@ public class UnloadCommand extends Command {
   }
 
   @Override
-  public void apply() {
+  public void apply(IGame game) {
     // TODO Auto-generated method stub
     
   }

@@ -1,7 +1,8 @@
 package crest.commons;
 
-import java.util.Map;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Order {
 	
@@ -10,6 +11,8 @@ public class Order {
 	private final int id;
 	private final int xCoord;
 	private final int yCoord;
+	public int numItems;
+	public int[] itemIndex;
 	
 	public Order(int orderId, int x, int y){
 		id = orderId;
