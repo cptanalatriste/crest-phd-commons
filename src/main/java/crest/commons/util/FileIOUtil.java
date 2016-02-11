@@ -126,7 +126,7 @@ public class FileIOUtil {
 
 						line = reader.readLine();
 						int numItems = Integer.parseInt(line);
-						problem.orders_array[i] = new Order(destination_x, destination_y, numItems);
+						problem.orders_array[i] = new Order(i,destination_x, destination_y, numItems);
 						problem.orders_array[i].itemIndex = new int[problem.orders_array[i].numItems];
 
 						line = reader.readLine();
