@@ -71,8 +71,16 @@ public class Drone {
   }
 
   public int getCurrentCapacity(IGame game) {
-    // TODO Auto-generated method stub
-    return 0;
+    int currentWeight = 0;
+
+    for (Map.Entry<Integer, Integer> entry : products.entrySet()) {
+      Integer productType = entry.getKey();
+      Integer items = entry.getValue();
+
+      currentWeight += items * game.getProductType(productType).getWeight();
+    }
+
+    return this.maxCapacity - currentWeight;
   }
 
 }
