@@ -11,15 +11,11 @@ public class SolutionRepresentation {
   private List<Drone> dronesWithCommands;
 
   public void run(IGame game) {
-    for (Drone drone : dronesWithCommands) {
-      drone.setCurrentTurn(FIRST_TURN);
-    }
-    
-    for (Drone drone: dronesWithCommands) {
-      for(Command commandInDrone: drone.getCommands()) {
-        commandInDrone.apply(game);
-      }
-    }
+	  for(int i=0; i<game.getMaxTurns();i++){
+		  for(Drone d : game.getDrones()){
+			  d.applyTurn(game);
+		  }
+	  }
   }
 
   public String getSolutionAsString() {
