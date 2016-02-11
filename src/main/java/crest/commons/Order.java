@@ -1,5 +1,6 @@
 package crest.commons;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,4 +57,15 @@ public class Order {
   public int getYCoord() {
     return yCoord;
   }
+
+/* (non-Javadoc)
+ * @see java.lang.Object#toString()
+ */
+@Override
+public String toString() {
+	return "Order [orderDetails=" + orderDetails + ", delivered=" + delivered + ", id=" + id + ", xCoord=" + xCoord
+			+ ", yCoord=" + yCoord + ", numItems=" + numItems + ", itemIndex=" + Arrays.toString(itemIndex) + "]";
+}
+  
+  
 }
