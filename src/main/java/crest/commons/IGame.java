@@ -39,5 +39,7 @@ public interface IGame {
 	public Order getOrder(int id);
 	public ProductType getProductType(int id);
 	public WareHouse getWareHouse(int id);
+	public int getCurrentTurn();
+	public void setCurrentTurn(int value);
 	
 }

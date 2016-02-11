@@ -9,6 +9,8 @@ public class Order {
 	// <ProductId, quantity>
 	private Map<Integer, Integer> orderDetails = new HashMap<Integer, Integer>();
 	private Map<Integer, Integer> delivered = new HashMap<Integer, Integer>();
+	
+	private int turnCompleted=-1;
 
 	private final int id;
 	private final int xCoord;
@@ -49,8 +51,18 @@ public class Order {
 		return delivered;
 	}
 
-	public void setDelivered(Map<Integer, Integer> delivered) {
+	public void setDelivered(Map<Integer, Integer> delivered, int currentTurn) {
 		this.delivered = delivered;
+		boolean done=true;
+		for(Integer key : this.orderDetails.keySet()){
+			if(this.delivered.get(key) != this.orderDetails.get(key)){
+				done = false;
+			}
+		}
+		
+		if(done){
+			this.setTurnCompleted(currentTurn);
+		}
 	}
 
 	public int getId() {
@@ -64,7 +76,10 @@ public class Order {
 	public int getYCoord() {
 		return yCoord;
 	}
+	
+	
 
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -74,6 +89,14 @@ public class Order {
 	public String toString() {
 		return "Order [orderDetails=" + orderDetails + ", delivered=" + delivered + ", id=" + id + ", xCoord=" + xCoord
 				+ ", yCoord=" + yCoord + ", numItems=" + numItems + ", itemIndex=" + Arrays.toString(itemIndex) + "]";
+	}
+
+	public int getTurnCompleted() {
+		return turnCompleted;
+	}
+
+	public void setTurnCompleted(int turnCompleted) {
+		this.turnCompleted = turnCompleted;
 	}
 
 }

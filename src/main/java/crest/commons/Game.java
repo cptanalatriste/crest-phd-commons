@@ -28,6 +28,16 @@ public class Game implements IGame {
 	private int gameHeight=-1;
 	private int maxTurns=0;
 	private int maxCapacity=-1;
+	int currentTurn = 0;
+	
+	
+	public int getCurrentTurn(){
+		return currentTurn;
+	}
+	
+	public void setCurrentTurn(int cTime){
+		currentTurn=cTime;
+	}
 	
 
 	public void syncVar() {
