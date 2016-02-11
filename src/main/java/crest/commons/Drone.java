@@ -21,6 +21,7 @@ public class Drone {
     setYPos(x);
     setYPos(y);
   }
+ 
 
   public int getId() {
     return getIdentifier();

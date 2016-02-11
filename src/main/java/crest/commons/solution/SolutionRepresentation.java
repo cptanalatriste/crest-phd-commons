@@ -10,7 +10,13 @@ public class SolutionRepresentation {
   private List<Drone> dronesWithCommands;
 
   public String getSolutionAsString() {
-    return "";
+	  String toReturn="";
+	for(Drone d: dronesWithCommands){
+		for(int i=0; i< d.getCommands().size(); i++){
+			toReturn+=d.getCommands().get(i).asString() + "\n";
+		}
+	}
+    return toReturn;
   }
 
   public void generateProgramFile(Path filePath) {
