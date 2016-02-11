@@ -1,6 +1,7 @@
 package crest.commons.solution;
 
 import crest.commons.Drone;
+import crest.commons.IGame;
 
 import org.apache.commons.math3.ml.distance.EuclideanDistance;
 
@@ -25,8 +26,6 @@ public abstract class Command {
     double[] secondPoint = new double[] { secondX, secondY };
     return distance.compute(firstPoint, secondPoint);
   }
-  
-  public abstract void apply();
 
   public abstract int getTurns();
 
@@ -35,4 +34,6 @@ public abstract class Command {
   }
 
   public abstract String asString();
+
+  public abstract void apply(IGame game);
 }

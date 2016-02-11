@@ -1,6 +1,7 @@
 package crest.commons.solution;
 
 import crest.commons.Drone;
+import crest.commons.IGame;
 
 public class WaitCommand extends Command {
 
@@ -22,7 +23,7 @@ public class WaitCommand extends Command {
   }
 
   @Override
-  public void apply() {
+  public void apply(IGame game) {
     // TODO Auto-generated method stub
     
   }

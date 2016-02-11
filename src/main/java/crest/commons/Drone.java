@@ -70,4 +70,9 @@ public class Drone {
     this.maxCapacity = maxCapacity;
   }
 
+  public int getCurrentCapacity(IGame game) {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
 }
