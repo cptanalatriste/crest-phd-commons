@@ -6,6 +6,9 @@ public interface IGame {
 	public void setWidth(int width);
 	public void setHeight(int height);
 	public void setMaxTurns(int turns);
+	public void setMaxCapacity(int maxCapacity);
+	
+
 	
 	//All these return the ID, to be used later if needed
 	public void addDoneAtLocation(int id, int x, int y);
