@@ -11,7 +11,7 @@ public class Game implements IGame {
 	
 	private Set<WareHouse> warehouses = new HashSet<WareHouse>();
 	private Set<ProductType> products = new HashSet<ProductType>();
-	private Set<ProductType> orders = new HashSet<ProductType>();
+	private Set<Order> orders = new HashSet<Order>();
 	private Set<Drone> drones = new HashSet<Drone>();
 
 	public void setWidth(int width) {
@@ -24,6 +24,8 @@ public class Game implements IGame {
 			System.out.println("ERROR: Width already set!");
 			assert(false);
 		}
+		
+		gameWidth = width;
 	}
 
 	public void setHeight(int height) {
@@ -36,7 +38,7 @@ public class Game implements IGame {
 			System.out.println("ERROR: Height already set!");
 			assert(false);
 		}
-
+		gameHeight= height;
 	}
 	
 	private void checkInitialised(){
@@ -77,19 +79,17 @@ public class Game implements IGame {
 		}
 	}
 
-	public void addOrder(int id) {
-		checkInitialised();
-
-	}
-
 	public void addToOrder(int orderId, int productId) {
 		checkInitialised();
+		Order order = getOrder(orderId);
+		assert(order != null);
+		assert(getProductType(productId) != null);
+		order.addToOrder(productId);
 
 	}
 
 	public Set<WareHouse> getWareHouses() {
-		// TODO Auto-generated method stub
-		return null;
+		return warehouses;
 	}
 	
 	public WareHouse getWareHouse(int id){
@@ -101,44 +101,63 @@ public class Game implements IGame {
 		
 		return null;
 	}
-
-	public Set<ProductType> getProductTypes() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	public ProductType getProductType(int id){
-		for(ProductType p: )
+		for(ProductType p: products){
+			if(p.getId() == id){
+				return p;
+			}
+		}
+		
+		return null;
 	}
 
 	public int getWidth() {
-		// TODO Auto-generated method stub
-		return 0;
+		return gameWidth;
 	}
 
 	public int getHeight() {
-		// TODO Auto-generated method stub
-		return 0;
+		return gameHeight;
 	}
 
 	public int getMaxTurns() {
-		// TODO Auto-generated method stub
-		return 0;
+		return maxTurns;
 	}
 
 	public Set<Order> getOrders() {
-		// TODO Auto-generated method stub
-		return null;
+		return orders;
 	}
 
 	public Set<Drone> getDrones() {
-		// TODO Auto-generated method stub
-		return null;
+		return drones;
 	}
 
 	public void addOrder(int id, int x, int y) {
-		// TODO Auto-generated method stub
+		orders.add(new Order(id, x, y));
+	}
+	
+	public Order getOrder(int id){
+		for(Order p: orders){
+			if(p.getId() == id){
+				return p;
+			}
+		}
 		
+		return null;
+	}
+
+	public Set<ProductType> getProductTypes() {
+		return products;
+	}
+
+	public Drone getDrone(int id) {
+		for(Drone p: drones){
+			if(p.getId() == id){
+				return p;
+			}
+		}
+		
+		return null;
 	}
 
 }

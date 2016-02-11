@@ -18,6 +18,10 @@ public class Drone {
 	  setYPos(y);
   }
 
+public int getId(){
+	return getIdentifier();
+}
+  
 public int getIdentifier() {
 	return identifier;
 }
