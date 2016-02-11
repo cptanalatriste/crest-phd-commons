@@ -1,5 +1,8 @@
 package crest.commons.solution;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import crest.commons.Drone;
 import crest.commons.IGame;
 import crest.commons.Order;
@@ -48,8 +51,23 @@ public class DeliverCommand extends Command {
 
   @Override
   public void apply(IGame game) {
-    // TODO Auto-generated method stub
+	//Travel
+    this.getDrone().setXPos(this.getOrder().getXCoord());
+    this.getDrone().setYPos(this.getOrder().getYCoord());
     
+    //Update the delivery info in the order
+    Map<Integer, Integer> delivered = this.getOrder().getDelivered();
+    if(!delivered.containsKey(getProductType().getId())){
+    	delivered.put(getProductType().getId(), 0);
+    }
+    
+    delivered.put(getProductType().getId(), delivered.get(getProductType().getId()) + getQuantity());
+    
+
+    this.getOrder().setDelivered(delivered);
+    
+    //Remove the products from the Drone
+    this.getDrone().setProducts(new HashMap<Integer, Integer>());
   }
 
 }
