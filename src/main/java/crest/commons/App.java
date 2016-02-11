@@ -15,10 +15,10 @@ public class App {
 		Game problem = FileIOUtil.readProblemFile("example.in");
 		System.out.println(problem);
 
-//		ArrayList<Command> results = Greedy.greedy(problem);
-//		for (Command e : results) {
-//			System.out.println(e);
-//		}
+		ArrayList<Command> results = Greedy.greedy(problem);
+		for (Command e : results) {
+			System.out.println(e);
+		}
 
 	}
 }

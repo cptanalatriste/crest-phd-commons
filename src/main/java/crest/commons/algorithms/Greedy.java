@@ -112,8 +112,7 @@ public class Greedy {
         int i=0;
         for(i=0; i<game.orders_array.length; i++){
         	orders[i]=game.orders_array[i];
-            droneTurns[i]=(distance(game.getWareHouse(0), orders[i])*2+1)*numOfBins(game, orders[i], game.maxPlayload);
-            i++;
+            droneTurns[i]=(distance(game.getWareHouse(0), orders[i])*2+1)*numOfBins(game, orders[i], game.getMaxCapacity());
         }
         boolean[] flags=new boolean[numOfOrders];
         for(i=0; i<numOfOrders; i++){
@@ -138,7 +137,7 @@ public class Greedy {
                     droneID=i;
                 }
             }
-            commands.addAll(delivery(game, game.getDrone(droneID), game.getWareHouse(0), orders[leastIndex], game.maxPlayload));
+            commands.addAll(delivery(game, game.getDrone(droneID), game.getWareHouse(0), orders[leastIndex], game.getMaxCapacity()));
             flags[i]=false;
             orderLeft--;
         }
