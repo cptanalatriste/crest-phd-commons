@@ -13,6 +13,7 @@ public class Drone {
   private int yPos;
 
   private List<Command> commands;
+  private int maxCapacity;
   private Map<Integer, Integer> products = new HashMap<Integer, Integer>();
 
   public Drone(int id, int x, int y) {
@@ -59,6 +60,14 @@ public class Drone {
 
   public void setProducts(Map<Integer, Integer> products) {
     this.products = products;
+  }
+
+  public int getMaxCapacity() {
+    return maxCapacity;
+  }
+
+  public void setMaxCapacity(int maxCapacity) {
+    this.maxCapacity = maxCapacity;
   }
 
 }
