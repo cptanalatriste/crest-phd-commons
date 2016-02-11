@@ -26,6 +26,7 @@ public class Greedy {
         int leftProducts=order.numItems;
         while(leftProducts>0){
             numBins++;
+            currLoad=0;
             for(int i=0; i<order.numItems; i++){
                 int weight=game.getProductType(order.itemIndex[i]).getWeight();
                 if(flags[i] && currLoad+weight<=capacity){
@@ -109,7 +110,8 @@ public class Greedy {
         int[] droneAvailable=new int[game.num_drones];
         ArrayList<Command> commands=new ArrayList<Command>();
         int i=0;
-        for(Iterator iter=game.getOrders().iterator(); iter.hasNext(); orders[i]=(Order)iter.next()){
+        for(i=0; i<game.orders_array.length; i++){
+        	orders[i]=game.orders_array[i];
             droneTurns[i]=(distance(game.getWareHouse(0), orders[i])*2+1)*numOfBins(game, orders[i], game.maxPlayload);
             i++;
         }
@@ -137,6 +139,8 @@ public class Greedy {
                 }
             }
             commands.addAll(delivery(game, game.getDrone(droneID), game.getWareHouse(0), orders[leastIndex], game.maxPlayload));
+            flags[i]=false;
+            orderLeft--;
         }
         return commands;
     }
