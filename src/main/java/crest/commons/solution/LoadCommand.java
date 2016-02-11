@@ -5,6 +5,8 @@ import crest.commons.IGame;
 import crest.commons.ProductType;
 import crest.commons.WareHouse;
 
+import javax.management.RuntimeErrorException;
+
 import java.util.Map;
 
 public class LoadCommand extends Command {
@@ -33,7 +35,8 @@ public class LoadCommand extends Command {
 
   @Override
   public String asString() {
-    return super.getDrone().getId()+" "+super.getCommandName()+" "+getWarehouse().getId()+" "+getProductType().getId()+" "+getProductQuantity();
+    return super.getDrone().getId() + " " + super.getCommandName() + " " + getWarehouse().getId()
+        + " " + getProductType().getId() + " " + getProductQuantity();
   }
 
   @Override
@@ -41,6 +44,11 @@ public class LoadCommand extends Command {
     Drone drone = this.getDrone();
     drone.setXPos(warehouse.getxCoord());
     drone.setYPos(warehouse.getyCoord());
+
+    int pendingTurns = game.getMaxTurns() - drone.getCurrentTurn();
+    if (getTurns() > pendingTurns) {
+      throw new RuntimeException("Not enough turns to perform the command");
+    }
 
     int currentCapacity = drone.getCurrentCapacity(game);
     if (currentCapacity < productType.getWeight()) {
