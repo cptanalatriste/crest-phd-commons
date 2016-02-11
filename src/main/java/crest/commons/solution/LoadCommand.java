@@ -13,7 +13,8 @@ public class LoadCommand extends Command {
   private ProductType productType;
   private int productQuantity;
 
-  public LoadCommand(Drone drone, WareHouse warehouse, ProductType productType, int productQuantity) {
+  public LoadCommand(Drone drone, WareHouse warehouse, ProductType productType,
+      int productQuantity) {
     super(drone, "L");
     this.warehouse = warehouse;
     this.productQuantity = productQuantity;
