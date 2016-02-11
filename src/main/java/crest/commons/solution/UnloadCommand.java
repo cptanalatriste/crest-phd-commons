@@ -11,8 +11,12 @@ public class UnloadCommand extends Command {
   private ProductType productType;
   private int productQuantity;
 
-  public UnloadCommand(Drone drone) {
+  public UnloadCommand(Drone drone, WareHouse warehouse, ProductType productType,
+      int productQuantity) {
     super(drone, "U");
+    this.warehouse = warehouse;
+    this.productQuantity = productQuantity;
+    this.productType = productType;
   }
 
   @Override
@@ -23,7 +27,8 @@ public class UnloadCommand extends Command {
 
   @Override
   public int getTurns() {
-    LoadCommand loadCommand = new LoadCommand(this.getDrone(), warehouse, productQuantity);
+    LoadCommand loadCommand = new LoadCommand(this.getDrone(), warehouse, productType,
+        productQuantity);
     return loadCommand.getTurns();
   }
 
@@ -41,7 +46,8 @@ public class UnloadCommand extends Command {
 
   @Override
   public void apply(IGame game) {
-    LoadCommand loadCommand = new LoadCommand(this.getDrone(), warehouse, -1 * productQuantity);
+    LoadCommand loadCommand = new LoadCommand(this.getDrone(), warehouse, productType,
+        productQuantity);
     loadCommand.apply(game);
   }
 }
