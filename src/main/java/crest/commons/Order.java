@@ -1,27 +1,42 @@
 package crest.commons;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Order {
-	public int destination_x;
-	public int destination_y;
+	
+	//<ProductId, quantity>
+	Map<Integer, Integer> orderDetails = new HashMap<Integer, Integer>();
+	private final int id;
+	private final int xCoord;
+	private final int yCoord;
 	public int numItems;
 	public int[] itemIndex;
 	
-	public Order(int destination_x, int destination_y,int numItems){
-		this.destination_x = destination_x;
-		this.destination_y = destination_y;
-		this.numItems = numItems;
+	public Order(int orderId, int x, int y){
+		id = orderId;
+		xCoord=x;
+		yCoord=y;
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Order [destination_x=" + destination_x + ", destination_y=" + destination_y + ", numItems=" + numItems
-				+ ", itemIndex=" + Arrays.toString(itemIndex) + "]";
+	public void addToOrder(int itemId){
+		if(orderDetails.containsKey(itemId)){
+			orderDetails.put(itemId, 0);
+		}
+		
+		orderDetails.put(itemId, orderDetails.get(itemId)+1);
 	}
 	
-	
+	public int getId(){
+		return id;
+	}
+
+	public int getXCoord() {
+		return xCoord;
+	}
+
+	public int getYCoord() {
+		return yCoord;
+	}
 }
