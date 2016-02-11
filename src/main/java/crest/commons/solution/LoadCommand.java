@@ -33,4 +33,20 @@ public class LoadCommand extends Command {
     return "";
   }
 
+  @Override
+  public int getTurns() {
+    int firstX = this.getDrone().getXPos();
+    int firstY = this.getDrone().getYPos();
+    int secondX = this.getWarehouse().getxCoord();
+    int secondY = this.getWarehouse().getyCoord();
+    double normalizedDistance = Math.ceil(this.getDistance(firstX, firstY, secondX, secondY));
+    return (int) (normalizedDistance + 1);
+  }
+
+  @Override
+  public void apply() {
+    // TODO Auto-generated method stub
+    
+  }
+
 }

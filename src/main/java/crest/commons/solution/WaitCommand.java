@@ -21,4 +21,10 @@ public class WaitCommand extends Command {
     return null;
   }
 
+  @Override
+  public void apply() {
+    // TODO Auto-generated method stub
+    
+  }
+
 }
