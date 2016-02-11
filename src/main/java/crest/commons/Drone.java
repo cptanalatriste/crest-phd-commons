@@ -21,10 +21,7 @@ public class Drone {
     setYPos(x);
     setYPos(y);
   }
-  
-  public List<Command> getCommands(){
-	  return commands;
-  }
+ 
 
   public int getId() {
     return getIdentifier();
