@@ -47,15 +47,42 @@ public class Greedy {
         }
         ArrayList<Command> commands=new ArrayList<Command>();
         int leftProducts=order.numItems;
+        int[] productID=new int[order.numItems];
+        int[] productNum=new int[order.numItems];
         while(leftProducts>0){
             numBins++;
+            for(int i=0; i<order.numItems; i++){
+                productID[i]=-1;
+                productNum[i]=0;
+            }
             for(int i=0; i<order.numItems; i++){
                 int weight=game.getProductType(order.itemIndex[i]).getWeight();
                 if(flags[i] && currLoad+weight<=capacity){
                     flags[i]=false;
                     currLoad+=weight;
                     leftProducts--;
+                    int productIndex=0;
+                    while(productID[productIndex]>=0 && productID[productIndex]!=order.itemIndex[i]){
+                        productIndex++;
+                    }
+                    if(productID[productIndex]<0){
+                        productID[productIndex]=order.itemIndex[i];
+                    }
+                    productNum[productIndex]++;
                 }
+            }
+            // load bins and send
+            int productIndex=0;
+            while(productID[productIndex]>=0){
+                Command c=new LoadCommand(drone, wareHouse, game.getProductType(productID[productIndex]), productNum[productIndex]);
+                commands.add(c);
+                productIndex++;
+            }
+            productIndex=0;
+            while(productID[productIndex]>=0){
+                Command c=new DeliverCommand(drone, order, game.getProductType(productID[productIndex]), productNum[productIndex]);
+                commands.add(c);
+                productIndex++;
             }
         }
         return commands;
@@ -72,7 +99,7 @@ public class Greedy {
         return (int)Math.ceil(d);
     }
     
-    public static void greedy(Game game){
+    public static ArrayList<Command> greedy(Game game){
         // sort orders
         int numOfOrders=game.getOrders().size();
         Order[] orders=new Order[numOfOrders];
@@ -80,6 +107,7 @@ public class Greedy {
         int[] dronex=new int[game.num_drones];
         int[] droney=new int[game.num_drones];
         int[] droneAvailable=new int[game.num_drones];
+        ArrayList<Command> commands=new ArrayList<Command>();
         int i=0;
         for(Iterator iter=game.getOrders().iterator(); iter.hasNext(); orders[i]=(Order)iter.next()){
             droneTurns[i]=(distance(game.getWareHouse(0), orders[i])*2+1)*numOfBins(game, orders[i], game.maxPlayload);
@@ -102,7 +130,14 @@ public class Greedy {
                     leastIndex=i;
                 }
             }
-            
+            int droneID=0;
+            for(i=0; i<game.num_drones; i++){
+                if(droneAvailable[i]<droneAvailable[droneID]){
+                    droneID=i;
+                }
+            }
+            commands.addAll(delivery(game, game.getDrone(droneID), game.getWareHouse(0), orders[leastIndex], game.maxPlayload));
         }
+        return commands;
     }
 }
