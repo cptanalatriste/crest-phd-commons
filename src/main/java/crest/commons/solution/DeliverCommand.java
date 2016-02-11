@@ -35,4 +35,15 @@ public class DeliverCommand extends Command {
     return null;
   }
 
+  @Override
+  public int getTurns() {
+    int firstX = this.getDrone().getxCoord();
+    int firstY = this.getDrone().getyCoord();
+    int secondX = 0;
+    int secondY = 0;
+    double normalizedDistance = Math.ceil(this.getDistance(firstX, firstY, secondX, secondY));
+    return (int) (normalizedDistance + 1);
+
+  }
+
 }
