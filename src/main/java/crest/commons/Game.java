@@ -21,6 +21,14 @@ public class Game implements IGame {
 	public Order[] orders_array;
 	public Drone[] drones_array;
 	public int num_drones;
+	
+	
+	
+	private int gameWidth=-1;
+	private int gameHeight=-1;
+	private int maxTurns=0;
+	private int maxCapacity=-1;
+	
 
 	public void syncVar() {
 		this.gameWidth = this.width;
@@ -43,9 +51,6 @@ public class Game implements IGame {
 		}
 	}
 
-	private int gameWidth = -1;
-	private int gameHeight = -1;
-	private int maxTurns = 0;
 
 	private Set<WareHouse> warehouses = new HashSet<WareHouse>();
 	private Set<ProductType> products = new HashSet<ProductType>();
@@ -78,10 +83,10 @@ public class Game implements IGame {
 		}
 		gameHeight = height;
 	}
-
-	private void checkInitialised() {
-		if (gameHeight == -1 || gameWidth == -1) {
-			System.out.println("ERROR: Height and Width must be set before calling this function!");
+	
+	private void checkInitialised(){
+		if(gameHeight == -1 || gameWidth == -1 || maxCapacity == -1){
+			System.out.println("ERROR: Height, Width, and max capacity must be set before calling this function!");
 			assert (false);
 		}
 	}
@@ -93,7 +98,9 @@ public class Game implements IGame {
 
 	public void addDoneAtLocation(int id, int x, int y) {
 		checkInitialised();
-		drones.add(new Drone(id, x, y));
+		Drone newDrone = new Drone(id, x, y);
+		newDrone.setMaxCapacity(this.maxCapacity);
+		drones.add(newDrone);
 	}
 
 	public void addWarehoue(int id, int x, int y) {
@@ -196,6 +203,10 @@ public class Game implements IGame {
 		}
 
 		return null;
+	}
+
+	public void setMaxCapacity(int maxCapacity) {
+		this.maxCapacity = maxCapacity;
 	}
 
 }
