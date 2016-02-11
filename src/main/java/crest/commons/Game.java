@@ -33,7 +33,7 @@ public class Game implements IGame {
 	public void syncVar() {
 		this.gameWidth = this.width;
 		this.gameHeight = this.height;
-		this.maxPlayload = maxCapacity;
+		this.maxCapacity = maxPlayload;
 
 		for (WareHouse e : wareHouses) {
 			warehouses.add(e);
