@@ -1,5 +1,7 @@
 package crest.commons.solution;
 
+import crest.commons.Drone;
+
 import java.nio.file.Path;
 import java.util.List;
 

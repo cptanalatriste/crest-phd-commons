@@ -1,5 +1,6 @@
 package crest.commons.solution;
 
+import crest.commons.Drone;
 import crest.commons.Order;
 import crest.commons.ProductType;
 

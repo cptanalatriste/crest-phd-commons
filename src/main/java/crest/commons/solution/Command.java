@@ -1,5 +1,7 @@
 package crest.commons.solution;
 
+import crest.commons.Drone;
+
 public abstract class Command {
 
   private Drone drone;

@@ -1,5 +1,7 @@
 package crest.commons.solution;
 
+import crest.commons.Drone;
+
 public class WaitCommand extends Command {
 
   private int turns;

@@ -1,4 +1,6 @@
-package crest.commons.solution;
+package crest.commons;
+
+import crest.commons.solution.Command;
 
 import java.util.List;
 
