@@ -6,41 +6,39 @@ import java.util.List;
 
 public class Drone {
 
-  private int identifier;
+  private final int identifier;
+  private int xPos;
+  private int yPos;
+  
   private List<Command> commands;
-  private int currentPositionX;
-  private int currentPositionY;
-
-  public int getIdentifier() {
-    return identifier;
+  
+  public Drone(int id, int x, int y){
+	  identifier = id;
+	  setYPos(x);
+	  setYPos(y);
   }
 
-  public void setIdentifier(int identifier) {
-    this.identifier = identifier;
-  }
+public int getId(){
+	return getIdentifier();
+}
+  
+public int getIdentifier() {
+	return identifier;
+}
 
-  public List<Command> getCommands() {
-    return commands;
-  }
+public int getXPos() {
+	return xPos;
+}
 
-  public void setCommands(List<Command> commands) {
-    this.commands = commands;
-  }
+public void setXPos(int xPos) {
+	this.xPos = xPos;
+}
 
-  public int getxCoord() {
-    return currentPositionX;
-  }
+public int getYPos() {
+	return yPos;
+}
 
-  public void setCurrentPositionX(int currentPositionX) {
-    this.currentPositionX = currentPositionX;
-  }
-
-  public int getyCoord() {
-    return currentPositionY;
-  }
-
-  public void setCurrentPositionY(int currentPositionY) {
-    this.currentPositionY = currentPositionY;
-  }
-
+public void setYPos(int yPos) {
+	this.yPos = yPos;
+}
 }

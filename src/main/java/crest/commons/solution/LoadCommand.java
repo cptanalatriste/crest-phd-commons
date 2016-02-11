@@ -35,8 +35,8 @@ public class LoadCommand extends Command {
 
   @Override
   public int getTurns() {
-    int firstX = this.getDrone().getxCoord();
-    int firstY = this.getDrone().getyCoord();
+    int firstX = this.getDrone().getXPos();
+    int firstY = this.getDrone().getYPos();
     int secondX = this.getWarehouse().getxCoord();
     int secondY = this.getWarehouse().getyCoord();
     double normalizedDistance = Math.ceil(this.getDistance(firstX, firstY, secondX, secondY));

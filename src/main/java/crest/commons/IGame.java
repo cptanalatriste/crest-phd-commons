@@ -15,7 +15,7 @@ public interface IGame {
 	
 	public void addProductAtWarehouse(int warehouseId, int productID);
 	
-	public void addOrder(int id);
+	public void addOrder(int id, int x, int y);
 	public void addToOrder(int orderId, int productId);
 	
 	public Set<WareHouse> getWareHouses();
@@ -31,5 +31,10 @@ public interface IGame {
 	public Set<Order> getOrders();
 	
 	public Set<Drone> getDrones();
+	
+	public Drone getDrone(int id);
+	public Order getOrder(int id);
+	public ProductType getProductType(int id);
+	public WareHouse getWareHouse(int id);
 	
 }
