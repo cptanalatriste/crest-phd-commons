@@ -36,4 +36,10 @@ public class UnloadCommand extends Command {
   public int getProductQuantity() {
     return productQuantity;
   }
+
+  @Override
+  public void apply() {
+    // TODO Auto-generated method stub
+    
+  }
 }

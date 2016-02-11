@@ -43,4 +43,10 @@ public class LoadCommand extends Command {
     return (int) (normalizedDistance + 1);
   }
 
+  @Override
+  public void apply() {
+    // TODO Auto-generated method stub
+    
+  }
+
 }

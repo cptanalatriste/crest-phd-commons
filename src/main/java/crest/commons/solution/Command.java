@@ -25,6 +25,8 @@ public abstract class Command {
     double[] secondPoint = new double[] { secondX, secondY };
     return distance.compute(firstPoint, secondPoint);
   }
+  
+  public abstract void apply();
 
   public abstract int getTurns();
 

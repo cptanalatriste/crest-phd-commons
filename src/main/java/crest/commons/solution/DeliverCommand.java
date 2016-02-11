@@ -46,4 +46,10 @@ public class DeliverCommand extends Command {
 
   }
 
+  @Override
+  public void apply() {
+    // TODO Auto-generated method stub
+    
+  }
+
 }
