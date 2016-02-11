@@ -17,7 +17,8 @@ public class UnloadCommand extends Command {
 
   @Override
   public String asString() {
-    return super.getDrone().getId()+" "+super.getCommandName()+" "+getWarehouse().getId()+" "+getProductType().getId()+" "+getProductQuantity();
+    return super.getDrone().getId() + " " + super.getCommandName() + " " + getWarehouse().getId()
+        + " " + getProductType().getId() + " " + getProductQuantity();
   }
 
   @Override
@@ -40,7 +41,7 @@ public class UnloadCommand extends Command {
 
   @Override
   public void apply(IGame game) {
-    // TODO Auto-generated method stub
-    
+    LoadCommand loadCommand = new LoadCommand(this.getDrone(), warehouse, -1 * productQuantity);
+    loadCommand.apply(game);
   }
 }
