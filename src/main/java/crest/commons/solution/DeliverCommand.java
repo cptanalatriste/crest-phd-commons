@@ -65,7 +65,7 @@ public class DeliverCommand extends Command {
     	delivered.put(getProductType().getId(), delivered.get(getProductType().getId()) + getQuantity());
     
 
-    	this.getOrder().setDelivered(delivered);
+    	this.getOrder().setDelivered(delivered, game.getCurrentTurn());
     
     	//Remove the products from the Drone
     	this.getDrone().setProducts(new HashMap<Integer, Integer>());

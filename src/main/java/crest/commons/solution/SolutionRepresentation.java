@@ -14,6 +14,7 @@ public class SolutionRepresentation {
 	  for(int i=0; i<game.getMaxTurns();i++){
 		  for(Drone d : game.getDrones()){
 			  d.applyTurn(game);
+			  game.setCurrentTurn(game.getCurrentTurn()+1);
 		  }
 	  }
   }
