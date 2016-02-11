@@ -33,6 +33,7 @@ public class Game implements IGame {
 	public void syncVar() {
 		this.gameWidth = this.width;
 		this.gameHeight = this.height;
+		this.maxPlayload = maxCapacity;
 
 		for (WareHouse e : wareHouses) {
 			warehouses.add(e);
@@ -41,10 +42,10 @@ public class Game implements IGame {
 		for (Order e : orders_array) {
 			orders.add(e);
 		}
-
-//		for (Drone e : drones_array) {
-//			drones.add(e);
-//		}
+		
+		for(int i=0;i<num_drones;i++){
+			drones.add(new Drone(i,0,0));
+		}
 
 		for (int i = 0; i < productTypes.length; i++) {
 			products.add(new ProductType(i, productTypes[i]));

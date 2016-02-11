@@ -9,6 +9,7 @@ public abstract class Command {
 
   private Drone drone;
   private String commandName;
+  protected int turnNo = 0;
 
   public Command(Drone drone, String commandName) {
     this.drone = drone;
@@ -35,5 +36,5 @@ public abstract class Command {
 
   public abstract String asString();
 
-  public abstract void apply(IGame game);
+  public abstract boolean apply(IGame game);
 }

@@ -11,9 +11,10 @@ public class Drone {
   private final int identifier;
   private int xPos;
   private int yPos;
-  private int currentTurn;
+  //private int currentTurn;
 
   private List<Command> commands;
+  private int currentListPosition=0;
   private int maxCapacity;
   private Map<Integer, Integer> products = new HashMap<Integer, Integer>();
 
@@ -67,13 +68,13 @@ public class Drone {
     return maxCapacity;
   }
 
-  public int getCurrentTurn() {
+  /*public int getCurrentTurn() {
     return currentTurn;
   }
 
   public void setCurrentTurn(int currentTurn) {
     this.currentTurn = currentTurn;
-  }
+  }*/
 
   public void setMaxCapacity(int maxCapacity) {
     this.maxCapacity = maxCapacity;
@@ -90,6 +91,15 @@ public class Drone {
     }
 
     return this.maxCapacity - currentWeight;
+  }
+  
+  public void applyTurn(IGame game){
+	  try{
+		  Command com = getCommands().get(currentListPosition);
+		  if(com.apply(game)){
+			  currentListPosition++;
+	  }
+	  } catch (IndexOutOfBoundsException ex){} //Soz, There are no more commands to execute bro.
   }
 
 }

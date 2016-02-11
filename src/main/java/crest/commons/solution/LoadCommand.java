@@ -40,25 +40,34 @@ public class LoadCommand extends Command {
   }
 
   @Override
-  public void apply(IGame game) {
+  public boolean apply(IGame game) {
+	  
     Drone drone = this.getDrone();
-    drone.setXPos(warehouse.getxCoord());
-    drone.setYPos(warehouse.getyCoord());
 
-    int pendingTurns = game.getMaxTurns() - drone.getCurrentTurn();
+  /*  int pendingTurns = game.getMaxTurns() - drone.getCurrentTurn();
     if (getTurns() > pendingTurns) {
       throw new RuntimeException("Not enough turns to perform the command");
-    }
+    }*/
+    
+    if(super.turnNo == getTurns()){
+    	
 
-    int currentCapacity = drone.getCurrentCapacity(game);
-    if (currentCapacity < productType.getWeight()) {
-      throw new RuntimeException("The Drone doesn't have enough capacity");
+    	drone.setXPos(warehouse.getxCoord());
+    	drone.setYPos(warehouse.getyCoord());
+    	int currentCapacity = drone.getCurrentCapacity(game);
+    	if (currentCapacity < productType.getWeight()) {
+    		throw new RuntimeException("The Drone doesn't have enough capacity");
+    	} else {
+    	int productTypeId = productType.getId();
+      	drone.getProducts().put(productTypeId, productQuantity);
+      	Map<Integer, Integer> productsInWarehouse = this.warehouse.getProducts();
+      	productsInWarehouse.put(productTypeId,
+    		  productsInWarehouse.get(productTypeId) - productQuantity);
+    	}
+    	super.turnNo++;
+    	return false;
     } else {
-      int productTypeId = productType.getId();
-      drone.getProducts().put(productTypeId, productQuantity);
-      Map<Integer, Integer> productsInWarehouse = this.warehouse.getProducts();
-      productsInWarehouse.put(productTypeId,
-          productsInWarehouse.get(productTypeId) - productQuantity);
+    	return true;
     }
 
   }

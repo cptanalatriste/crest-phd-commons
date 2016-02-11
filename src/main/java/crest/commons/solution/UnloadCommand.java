@@ -10,6 +10,7 @@ public class UnloadCommand extends Command {
   private WareHouse warehouse;
   private ProductType productType;
   private int productQuantity;
+  private LoadCommand loadC;
 
   public UnloadCommand(Drone drone, WareHouse warehouse, ProductType productType,
       int productQuantity) {
@@ -17,6 +18,8 @@ public class UnloadCommand extends Command {
     this.warehouse = warehouse;
     this.productQuantity = productQuantity;
     this.productType = productType;
+    loadC = new LoadCommand(this.getDrone(), warehouse, productType,
+            -1*productQuantity);
   }
 
   @Override
@@ -27,9 +30,11 @@ public class UnloadCommand extends Command {
 
   @Override
   public int getTurns() {
-    LoadCommand loadCommand = new LoadCommand(this.getDrone(), warehouse, productType,
+	  assert(false); //This should be unreachable.
+	  return -1;
+   /* LoadCommand loadCommand = new LoadCommand(this.getDrone(), warehouse, productType,
         productQuantity);
-    return loadCommand.getTurns();
+    return loadCommand.getTurns();*/
   }
 
   public WareHouse getWarehouse() {
@@ -45,9 +50,7 @@ public class UnloadCommand extends Command {
   }
 
   @Override
-  public void apply(IGame game) {
-    LoadCommand loadCommand = new LoadCommand(this.getDrone(), warehouse, productType,
-        productQuantity);
-    loadCommand.apply(game);
+  public boolean apply(IGame game) {
+    return loadC.apply(game);
   }
 }

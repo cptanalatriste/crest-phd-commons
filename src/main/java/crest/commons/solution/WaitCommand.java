@@ -22,8 +22,13 @@ public class WaitCommand extends Command {
   }
 
   @Override
-  public void apply(IGame game) {
-    // TODO Auto-generated method stub
+  public boolean apply(IGame game) {
+    if(getTurns() == super.turnNo){
+    	return true;
+    } else {
+    	super.turnNo++;
+    	return false;
+    }
     
   }
 
