@@ -34,9 +34,9 @@ public class Game implements IGame {
 			orders.add(e);
 		}
 
-		for (Drone e : drones_array) {
-			drones.add(e);
-		}
+//		for (Drone e : drones_array) {
+//			drones.add(e);
+//		}
 
 		for (int i = 0; i < productTypes.length; i++) {
 			products.add(new ProductType(i, productTypes[i]));

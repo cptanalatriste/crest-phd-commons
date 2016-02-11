@@ -8,6 +8,23 @@ public class WareHouse {
 	private final int xCoord;
 	private final int yCoord;
 	private int[] numItems;
+	
+	public void syncProduct(){
+//		for(int i=0;i<numItems.length;i++){
+//			if(products.containsKey(numItems[i])){
+//				int tmp = products.get(numItems[i])+1;
+//				products.put(numItems[i], tmp);
+//			}else{
+//				products.put(numItems[i], 1);
+//			}
+//		}
+		
+		
+	}
+	
+	public void setProduct(int prodId, int quantity){
+		products.put(prodId, quantity);	
+	}
 
 	//<ProductId, quantity>
 	Map<Integer, Integer> products = new HashMap<Integer, Integer>();

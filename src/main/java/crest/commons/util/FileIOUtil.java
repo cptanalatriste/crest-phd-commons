@@ -103,6 +103,7 @@ public class FileIOUtil {
 						elements = line.split(" ");
 						for (int i = 0; i < types_products; i++) {
 							problem.wareHouses[index_warehouse].getNumItems()[i] = Integer.parseInt(elements[i]);
+							problem.wareHouses[index_warehouse].setProduct(i, Integer.parseInt(elements[i]));
 						}
 
 						// next warehouse
