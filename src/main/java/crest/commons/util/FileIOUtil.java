@@ -101,7 +101,7 @@ public class FileIOUtil {
 						line = reader.readLine();
 						index++;
 						elements = line.split(" ");
-						for (int i = 0; i < types_products; i++) {
+						for (int i = 0; i < problem.numTypesProducts; i++) {
 							problem.wareHouses[index_warehouse].getNumItems()[i] = Integer.parseInt(elements[i]);
 							problem.wareHouses[index_warehouse].setProduct(i, Integer.parseInt(elements[i]));
 						}
@@ -149,10 +149,5 @@ public class FileIOUtil {
 		problem.syncVar();
 		return problem;
 
-	}
-
-	public static void main(String[] args) {
-		Game problem = readProblemFile("busy_day.in");
-		System.out.println(problem);
 	}
 }
