@@ -1,5 +1,7 @@
 package crest.commons;
 
+import java.util.Set;
+
 public interface IGame {
 	public void setWidth(int width);
 	public void setHeight(int height);
@@ -15,5 +17,19 @@ public interface IGame {
 	
 	public void addOrder(int id);
 	public void addToOrder(int orderId, int productId);
+	
+	public Set<WareHouse> getWareHouses();
+	
+	public Set<ProductType> getProductTypes();
+	
+	public int getWidth();
+	
+	public int getHeight();
+	
+	public int getMaxTurns();
+	
+	public Set<Order> getOrders();
+	
+	public Set<Drone> getDrones();
 	
 }
