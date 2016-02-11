@@ -15,7 +15,7 @@ public class SolutionRepresentation {
 
     for (int turnNumber = 0; turnNumber < numberOfTurns; turnNumber += 1) {
       for (Drone drone : dronesWithCommands) {
-
+    	  drone.applyTurn(game);
       }
     }
   }
