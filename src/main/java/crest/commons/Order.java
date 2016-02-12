@@ -16,6 +16,9 @@ public class Order implements Trackable {
   private final int xCoord;
   private final int yCoord;
   private int numItems;
+
+  // TODO: This vector is redundant. The orderDetails one should be used
+  // instead.
   private int[] itemIndex;
 
   public Order(int orderId, int x, int y) {
