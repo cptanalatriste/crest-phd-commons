@@ -75,13 +75,13 @@ public class Greedy {
             }
             // load bins and send
             int productIndex=0;
-            while(productID[productIndex]>=0){
+            while(productIndex<productID.length && productID[productIndex]>=0){
                 Command c=new LoadCommand(drone, wareHouse, game.getProductType(productID[productIndex]), productNum[productIndex]);
                 commands.add(c);
                 productIndex++;
             }
             productIndex=0;
-            while(productID[productIndex]>=0){
+            while(productIndex<productID.length && productID[productIndex]>=0){
                 Command c=new DeliverCommand(drone, order, game.getProductType(productID[productIndex]), productNum[productIndex]);
                 commands.add(c);
                 productIndex++;
@@ -113,7 +113,7 @@ public class Greedy {
         int i=0;
         for(i=0; i<game.orders_array.length; i++){
         	orders[i]=game.orders_array[i];
-            droneTurns[i]=(distance(game.getWareHouse(0), orders[i])*2+1)*numOfBins(game, orders[i], game.getMaxCapacity());
+            droneTurns[i]=distance(game.getWareHouse(0), orders[i])*(numOfBins(game, orders[i], game.getMaxCapacity())*2)+orders[i].numItems*2;
         }
         boolean[] flags=new boolean[numOfOrders];
         for(i=0; i<numOfOrders; i++){
@@ -138,7 +138,11 @@ public class Greedy {
                     droneID=i;
                 }
             }
+            if(droneTurns[leastIndex]+droneAvailable[droneID]>=game.getMaxTurns()){
+            	break;
+            }
             commands.addAll(delivery(game, game.getDrone(droneID), game.getWareHouse(0), orders[leastIndex], game.getMaxCapacity()));
+            droneAvailable[droneID]+=droneTurns[leastIndex];
             flags[leastIndex]=false;
             orderLeft--;
         }

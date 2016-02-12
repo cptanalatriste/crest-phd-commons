@@ -35,7 +35,7 @@ public class DeliverCommand extends Command {
 
   @Override
   public String asString() {
-    return super.getDrone().getId()+" "+super.getCommandName()+" "+getOrder().getId()+" "+getProductType().getId()+getQuantity();
+    return super.getDrone().getId()+" "+super.getCommandName()+" "+getOrder().getId()+" "+getProductType().getId()+" "+getQuantity();
   }
 
   @Override
