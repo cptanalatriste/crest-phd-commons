@@ -41,44 +41,34 @@ public class LoadCommand extends Command {
 
   @Override
   public boolean apply(IGame game) {
-	  
+
     Drone drone = this.getDrone();
 
-  /*  int pendingTurns = game.getMaxTurns() - drone.getCurrentTurn();
-    if (getTurns() > pendingTurns) {
-      throw new RuntimeException("Not enough turns to perform the command");
-    }*/
-    
-    if(super.turnNo == getTurns()){
-    	
+    if (super.turnNo == getTurns()) {
 
-    	drone.setXPos(warehouse.getxCoord());
-    	drone.setYPos(warehouse.getyCoord());
-    	int currentCapacity = drone.getCurrentCapacity(game);
-    	if (currentCapacity < productType.getWeight()) {
-    		throw new RuntimeException("The Drone doesn't have enough capacity");
-    	} else {
-    	int productTypeId = productType.getId();
-      	drone.getProducts().put(productTypeId, productQuantity);
-      	Map<Integer, Integer> productsInWarehouse = this.warehouse.getProducts();
-      	productsInWarehouse.put(productTypeId,
-    		  productsInWarehouse.get(productTypeId) - productQuantity);
-    	}
-    	super.turnNo++;
-    	return false;
+      drone.setXPos(warehouse.getXCoord());
+      drone.setYPos(warehouse.getYCoord());
+      int currentCapacity = drone.getCurrentCapacity(game);
+      if (currentCapacity < productType.getWeight()) {
+        throw new RuntimeException("The Drone doesn't have enough capacity");
+      } else {
+        int productTypeId = productType.getId();
+        drone.getProducts().put(productTypeId, productQuantity);
+        Map<Integer, Integer> productsInWarehouse = this.warehouse.getProducts();
+        productsInWarehouse.put(productTypeId,
+            productsInWarehouse.get(productTypeId) - productQuantity);
+      }
+      super.turnNo++;
+      return false;
     } else {
-    	return true;
+      return true;
     }
 
   }
 
   @Override
   public int getTurns() {
-    int firstX = this.getDrone().getXPos();
-    int firstY = this.getDrone().getYPos();
-    int secondX = this.getWarehouse().getxCoord();
-    int secondY = this.getWarehouse().getyCoord();
-    double normalizedDistance = Math.ceil(this.getDistance(firstX, firstY, secondX, secondY));
+    double normalizedDistance = getNormalizedDistance(this.getDrone(), this.getWarehouse());
     return (int) (normalizedDistance + 1);
   }
 

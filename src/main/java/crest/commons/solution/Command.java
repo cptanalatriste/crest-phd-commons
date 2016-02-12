@@ -2,6 +2,7 @@ package crest.commons.solution;
 
 import crest.commons.Drone;
 import crest.commons.IGame;
+import crest.commons.Trackable;
 
 import org.apache.commons.math3.ml.distance.EuclideanDistance;
 
@@ -20,12 +21,16 @@ public abstract class Command {
     return this.drone;
   }
 
-  public double getDistance(int firstX, int firstY, int secondX, int secondY) {
+  public static double getDistance(Trackable firstItem, Trackable secondItem) {
     EuclideanDistance distance = new EuclideanDistance();
 
-    double[] firstPoint = new double[] { firstX, firstY };
-    double[] secondPoint = new double[] { secondX, secondY };
+    double[] firstPoint = new double[] { firstItem.getXCoord(), firstItem.getYCoord() };
+    double[] secondPoint = new double[] { secondItem.getXCoord(), secondItem.getYCoord() };
     return distance.compute(firstPoint, secondPoint);
+  }
+
+  public static int getNormalizedDistance(Trackable firstItem, Trackable secondItem) {
+    return (int) Math.ceil(getDistance(firstItem, secondItem));
   }
 
   public abstract int getTurns();

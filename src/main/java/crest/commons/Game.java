@@ -5,228 +5,220 @@ import java.util.Set;
 
 public class Game implements IGame {
 
-	/*
-	 * Variables
-	 * 
-	 * @author: Lingbo
-	 */
-	public int width;
-	public int height;
-	public int maxPlayload;
-	public int numTypesProducts;
-	public int[] productTypes;
-	public int numWarehouses;
-	public WareHouse[] wareHouses;
-	public int numOrders;
-	public Order[] orders_array;
-	public Drone[] drones_array;
-	public int num_drones;
-	
-	
-	
-	private int gameWidth=-1;
-	private int gameHeight=-1;
-	private int maxTurns=0;
-	private int maxCapacity=-1;
-	int currentTurn = 0;
-	
-	
-	public int getCurrentTurn(){
-		return currentTurn;
-	}
-	
-	public void setCurrentTurn(int cTime){
-		currentTurn=cTime;
-	}
-	
+  /*
+   * Variables
+   * 
+   * @author: Lingbo
+   */
+  public int width;
+  public int height;
+  public int maxPlayload;
+  public int numTypesProducts;
+  public int[] productTypes;
+  public int numWarehouses;
+  public WareHouse[] wareHouses;
+  public int numOrders;
+  public Order[] orders_array;
+  public int num_drones;
 
-	public void syncVar() {
-		this.gameWidth = this.width;
-		this.gameHeight = this.height;
-		this.maxCapacity = maxPlayload;
+  private int gameWidth = -1;
+  private int gameHeight = -1;
+  private int maxTurns = 0;
+  private int maxCapacity = -1;
+  int currentTurn = 0;
 
-		for (WareHouse e : wareHouses) {
-			warehouses.add(e);
-		}
+  private Set<WareHouse> warehouses = new HashSet<WareHouse>();
+  private Set<ProductType> products = new HashSet<ProductType>();
+  private Set<Order> orders = new HashSet<Order>();
+  private Set<Drone> drones = new HashSet<Drone>();
 
-		for (Order e : orders_array) {
-			orders.add(e);
-		}
-		
-		for(int i=0;i<num_drones;i++){
-			drones.add(new Drone(i,0,0));
-		}
+  public int getCurrentTurn() {
+    return currentTurn;
+  }
 
-		for (int i = 0; i < productTypes.length; i++) {
-			products.add(new ProductType(i, productTypes[i]));
-		}
-	}
+  public void setCurrentTurn(int cTime) {
+    currentTurn = cTime;
+  }
 
+  public void syncVar() {
+    this.gameWidth = this.width;
+    this.gameHeight = this.height;
+    this.maxCapacity = maxPlayload;
 
-	private Set<WareHouse> warehouses = new HashSet<WareHouse>();
-	private Set<ProductType> products = new HashSet<ProductType>();
-	private Set<Order> orders = new HashSet<Order>();
-	private Set<Drone> drones = new HashSet<Drone>();
+    for (WareHouse e : wareHouses) {
+      warehouses.add(e);
+    }
 
-	public void setWidth(int width) {
-		if (width <= 0) {
-			System.out.println("ERROR: Width cannot be <= 0");
-			assert (false);
-		}
+    for (Order e : orders_array) {
+      orders.add(e);
+    }
 
-		if (gameWidth != -1) {
-			System.out.println("ERROR: Width already set!");
-			assert (false);
-		}
+    for (int i = 0; i < num_drones; i++) {
+      drones.add(new Drone(i, 0, 0));
+    }
 
-		gameWidth = width;
-	}
+    for (int i = 0; i < productTypes.length; i++) {
+      products.add(new ProductType(i, productTypes[i]));
+    }
+  }
 
-	public void setHeight(int height) {
-		if (height <= 0) {
-			System.out.println("ERROR: Height cannot be <= 0");
-			assert (false);
-		}
+  public void setWidth(int width) {
+    if (width <= 0) {
+      System.out.println("ERROR: Width cannot be <= 0");
+      assert(false);
+    }
 
-		if (gameHeight != -1) {
-			System.out.println("ERROR: Height already set!");
-			assert (false);
-		}
-		gameHeight = height;
-	}
-	
-	private void checkInitialised(){
-		if(gameHeight == -1 || gameWidth == -1 || maxCapacity == -1){
-			System.out.println("ERROR: Height, Width, and max capacity must be set before calling this function!");
-			assert (false);
-		}
-	}
+    if (gameWidth != -1) {
+      System.out.println("ERROR: Width already set!");
+      assert(false);
+    }
 
-	public void setMaxTurns(int turns) {
-		checkInitialised();
-		maxTurns = turns;
-	}
+    gameWidth = width;
+  }
 
-	public void addDoneAtLocation(int id, int x, int y) {
-		checkInitialised();
-		Drone newDrone = new Drone(id, x, y);
-		newDrone.setMaxCapacity(this.maxCapacity);
-		drones.add(newDrone);
-	}
+  public void setHeight(int height) {
+    if (height <= 0) {
+      System.out.println("ERROR: Height cannot be <= 0");
+      assert(false);
+    }
 
-	public void addWarehoue(int id, int x, int y) {
-		checkInitialised();
-		warehouses.add(new WareHouse(id, x, y));
-	}
+    if (gameHeight != -1) {
+      System.out.println("ERROR: Height already set!");
+      assert(false);
+    }
+    gameHeight = height;
+  }
 
-	public void addProduct(int id, int weight) {
-		checkInitialised();
-		products.add(new ProductType(id, weight));
-	}
+  private void checkInitialised() {
+    if (gameHeight == -1 || gameWidth == -1 || maxCapacity == -1) {
+      System.out.println(
+          "ERROR: Height, Width, and max capacity must be set before calling this function!");
+      assert(false);
+    }
+  }
 
-	public void addProductAtWarehouse(int warehouseId, int productID) {
-		checkInitialised();
-		boolean found = true;
-		for (WareHouse w : warehouses) {
-			if (w.getId() == warehouseId) {
+  public void setMaxTurns(int turns) {
+    checkInitialised();
+    maxTurns = turns;
+  }
 
-				w.addProduct(productID);
-			}
-		}
-	}
+  public void addDoneAtLocation(int id, int x, int y) {
+    checkInitialised();
+    Drone newDrone = new Drone(id, x, y);
+    newDrone.setMaxCapacity(this.maxCapacity);
+    drones.add(newDrone);
+  }
 
-	public void addToOrder(int orderId, int productId) {
-		checkInitialised();
-		Order order = getOrder(orderId);
-		assert (order != null);
-		assert (getProductType(productId) != null);
-		order.addToOrder(productId);
+  public void addWarehoue(int id, int x, int y) {
+    checkInitialised();
+    warehouses.add(new WareHouse(id, x, y));
+  }
 
-	}
+  public void addProduct(int id, int weight) {
+    checkInitialised();
+    products.add(new ProductType(id, weight));
+  }
 
-	public Set<WareHouse> getWareHouses() {
-		return warehouses;
-	}
+  public void addProductAtWarehouse(int warehouseId, int productID) {
+    checkInitialised();
+    for (WareHouse w : warehouses) {
+      if (w.getId() == warehouseId) {
 
-	public WareHouse getWareHouse(int id) {
-		for (WareHouse w : warehouses) {
-			if (w.getId() == id) {
-				return w;
-			}
-		}
+        w.addProduct(productID);
+      }
+    }
+  }
 
-		return null;
-	}
+  public void addToOrder(int orderId, int productId) {
+    checkInitialised();
+    Order order = getOrder(orderId);
+    assert(order != null);
+    assert(getProductType(productId) != null);
+    order.addToOrder(productId);
 
-	public ProductType getProductType(int id) {
-		for (ProductType p : products) {
-			if (p.getId() == id) {
-				return p;
-			}
-		}
+  }
 
-		return null;
-	}
+  public Set<WareHouse> getWareHouses() {
+    return warehouses;
+  }
 
-	public int getWidth() {
-		return gameWidth;
-	}
+  public WareHouse getWareHouse(int id) {
+    for (WareHouse w : warehouses) {
+      if (w.getId() == id) {
+        return w;
+      }
+    }
 
-	public int getHeight() {
-		return gameHeight;
-	}
+    return null;
+  }
 
-	public int getMaxTurns() {
-		return maxTurns;
-	}
+  public ProductType getProductType(int id) {
+    for (ProductType p : products) {
+      if (p.getId() == id) {
+        return p;
+      }
+    }
 
-	public Set<Order> getOrders() {
-		return orders;
-	}
+    return null;
+  }
 
-	public Set<Drone> getDrones() {
-		return drones;
-	}
+  public int getWidth() {
+    return gameWidth;
+  }
 
-	public void addOrder(int id, int x, int y) {
-		orders.add(new Order(id, x, y));
-	}
+  public int getHeight() {
+    return gameHeight;
+  }
 
-	public Order getOrder(int id) {
-		for (Order p : orders) {
-			if (p.getId() == id) {
-				return p;
-			}
-		}
+  public int getMaxTurns() {
+    return maxTurns;
+  }
 
-		return null;
-	}
+  public Set<Order> getOrders() {
+    return orders;
+  }
 
-	public Set<ProductType> getProductTypes() {
-		return products;
-	}
+  public Set<Drone> getDrones() {
+    return drones;
+  }
 
-	public Drone getDrone(int id) {
-		for (Drone p : drones) {
-			if (p.getId() == id) {
-				return p;
-			}
-		}
+  public void addOrder(int id, int x, int y) {
+    orders.add(new Order(id, x, y));
+  }
 
-		return null;
-	}
+  public Order getOrder(int id) {
+    for (Order p : orders) {
+      if (p.getId() == id) {
+        return p;
+      }
+    }
 
-	public void setMaxCapacity(int maxCapacity) {
-		this.maxCapacity = maxCapacity;
-	}
+    return null;
+  }
 
-	/**
-	 * @return the maxCapacity
-	 */
-	public int getMaxCapacity() {
-		return maxCapacity;
-	}
-	
-	
+  public Set<ProductType> getProductTypes() {
+    return products;
+  }
+
+  public Drone getDrone(int id) {
+    for (Drone p : drones) {
+      if (p.getId() == id) {
+        return p;
+      }
+    }
+
+    return null;
+  }
+
+  public void setMaxCapacity(int maxCapacity) {
+    this.maxCapacity = maxCapacity;
+  }
+
+  /**
+   * @return the maxCapacity
+   */
+  public int getMaxCapacity() {
+    return maxCapacity;
+  }
 
 }

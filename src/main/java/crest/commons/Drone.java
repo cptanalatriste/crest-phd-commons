@@ -6,15 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Drone {
+public class Drone implements Trackable {
 
   private final int identifier;
   private int xPos;
   private int yPos;
-  //private int currentTurn;
 
   private List<Command> commands;
-  private int currentListPosition=0;
+  private int currentListPosition = 0;
   private int maxCapacity;
   private Map<Integer, Integer> products = new HashMap<Integer, Integer>();
 
@@ -32,16 +31,16 @@ public class Drone {
     return identifier;
   }
 
-  public int getXPos() {
+  public int getXCoord() {
     return xPos;
+  }
+
+  public int getYCoord() {
+    return yPos;
   }
 
   public void setXPos(int xPos) {
     this.xPos = xPos;
-  }
-
-  public int getYPos() {
-    return yPos;
   }
 
   public void setYPos(int yPos) {
@@ -68,14 +67,6 @@ public class Drone {
     return maxCapacity;
   }
 
-  /*public int getCurrentTurn() {
-    return currentTurn;
-  }
-
-  public void setCurrentTurn(int currentTurn) {
-    this.currentTurn = currentTurn;
-  }*/
-
   public void setMaxCapacity(int maxCapacity) {
     this.maxCapacity = maxCapacity;
   }
@@ -92,14 +83,15 @@ public class Drone {
 
     return this.maxCapacity - currentWeight;
   }
-  
-  public void applyTurn(IGame game){
-	  try{
-		  Command com = getCommands().get(currentListPosition);
-		  if(com.apply(game)){
-			  currentListPosition++;
-	  }
-	  } catch (IndexOutOfBoundsException ex){} //Soz, There are no more commands to execute bro.
+
+  public void applyTurn(IGame game) {
+    try {
+      Command com = getCommands().get(currentListPosition);
+      if (com.apply(game)) {
+        currentListPosition++;
+      }
+    } catch (IndexOutOfBoundsException ex) {
+    } // Soz, There are no more commands to execute bro.
   }
 
 }

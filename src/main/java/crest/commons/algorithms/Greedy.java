@@ -4,148 +4,149 @@
  */
 package crest.commons.algorithms;
 
-import crest.commons.*;
-import crest.commons.solution.*;
+import crest.commons.Drone;
+import crest.commons.Game;
+import crest.commons.Order;
+import crest.commons.WareHouse;
+import crest.commons.solution.Command;
+import crest.commons.solution.DeliverCommand;
+import crest.commons.solution.LoadCommand;
+
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Set;
 
 /**
  *
  * @author J
  */
 public class Greedy {
-    
-    public static int numOfBins(Game game, Order order, int capacity){
-        int numBins=0;
-        int currLoad=0;
-        boolean[] flags=new boolean[order.numItems];
-        for(int i=0; i<order.numItems; i++){
-            flags[i]=true;
-        }
-        int leftProducts=order.numItems;
-        while(leftProducts>0){
-            numBins++;
-            currLoad=0;
-            for(int i=0; i<order.numItems; i++){
-                int weight=game.getProductType(order.itemIndex[i]).getWeight();
-                if(flags[i] && currLoad+weight<=capacity){
-                    flags[i]=false;
-                    currLoad+=weight;
-                    leftProducts--;
-                }
-            }
-        }
-        return numBins;
+
+  public static int numOfBins(Game game, Order order, int capacity) {
+    int numBins = 0;
+    int currLoad = 0;
+    int numItems = order.getNumItems();
+    boolean[] flags = new boolean[numItems];
+    for (int i = 0; i < numItems; i++) {
+      flags[i] = true;
     }
-    
-    public static ArrayList<Command> delivery(Game game, Drone drone, WareHouse wareHouse, Order order, int capacity){
-        int numBins=0;
-        int currLoad=0;
-        boolean[] flags=new boolean[order.numItems];
-        for(int i=0; i<order.numItems; i++){
-            flags[i]=true;
+    int leftProducts = numItems;
+    while (leftProducts > 0) {
+      numBins++;
+      currLoad = 0;
+      for (int i = 0; i < numItems; i++) {
+        int weight = game.getProductType(order.getItemIndex()[i]).getWeight();
+        if (flags[i] && currLoad + weight <= capacity) {
+          flags[i] = false;
+          currLoad += weight;
+          leftProducts--;
         }
-        ArrayList<Command> commands=new ArrayList<Command>();
-        int leftProducts=order.numItems;
-        int[] productID=new int[order.numItems];
-        int[] productNum=new int[order.numItems];
-        while(leftProducts>0){
-            numBins++;
-            currLoad=0;
-            for(int i=0; i<order.numItems; i++){
-                productID[i]=-1;
-                productNum[i]=0;
-            }
-            for(int i=0; i<order.numItems; i++){
-                int weight=game.getProductType(order.itemIndex[i]).getWeight();
-                if(flags[i] && currLoad+weight<=capacity){
-                    flags[i]=false;
-                    currLoad+=weight;
-                    leftProducts--;
-                    int productIndex=0;
-                    while(productID[productIndex]>=0 && productID[productIndex]!=order.itemIndex[i]){
-                        productIndex++;
-                    }
-                    if(productID[productIndex]<0){
-                        productID[productIndex]=order.itemIndex[i];
-                    }
-                    productNum[productIndex]++;
-                }
-            }
-            // load bins and send
-            int productIndex=0;
-            while(productIndex<productID.length && productID[productIndex]>=0){
-                Command c=new LoadCommand(drone, wareHouse, game.getProductType(productID[productIndex]), productNum[productIndex]);
-                commands.add(c);
-                productIndex++;
-            }
-            productIndex=0;
-            while(productIndex<productID.length && productID[productIndex]>=0){
-                Command c=new DeliverCommand(drone, order, game.getProductType(productID[productIndex]), productNum[productIndex]);
-                commands.add(c);
-                productIndex++;
-            }
-        }
-        return commands;
+      }
     }
-    
-    public static int distance(WareHouse wh, Order order){
-        int x1=wh.getxCoord();
-        int y1=wh.getyCoord();
-        int x2=order.getXCoord();
-        int y2=order.getYCoord();
-        x1-=x2;
-        y1-=y2;
-        double d=Math.sqrt(x1*x1+y1*y1);
-        return (int)Math.ceil(d);
+    return numBins;
+  }
+
+  public static ArrayList<Command> delivery(Game game, Drone drone, WareHouse wareHouse,
+      Order order, int capacity) {
+    int currLoad = 0;
+    int numItems = order.getNumItems();
+    boolean[] flags = new boolean[numItems];
+    for (int i = 0; i < numItems; i++) {
+      flags[i] = true;
     }
-    
-    public static ArrayList<Command> greedy(Game game){
-        // sort orders
-        int numOfOrders=game.getOrders().size();
-        Order[] orders=new Order[numOfOrders];
-        int[] droneTurns=new int[numOfOrders];
-        int[] dronex=new int[game.num_drones];
-        int[] droney=new int[game.num_drones];
-        int[] droneAvailable=new int[game.num_drones];
-        ArrayList<Command> commands=new ArrayList<Command>();
-        int i=0;
-        for(i=0; i<game.orders_array.length; i++){
-        	orders[i]=game.orders_array[i];
-            droneTurns[i]=distance(game.getWareHouse(0), orders[i])*(numOfBins(game, orders[i], game.getMaxCapacity())*2)+orders[i].numItems*2;
+    ArrayList<Command> commands = new ArrayList<Command>();
+    int leftProducts = numItems;
+    int[] productID = new int[numItems];
+    int[] productNum = new int[numItems];
+    while (leftProducts > 0) {
+      currLoad = 0;
+      for (int i = 0; i < numItems; i++) {
+        productID[i] = -1;
+        productNum[i] = 0;
+      }
+      for (int i = 0; i < numItems; i++) {
+        int[] itemIndex = order.getItemIndex();
+
+        int weight = game.getProductType(itemIndex[i]).getWeight();
+        if (flags[i] && currLoad + weight <= capacity) {
+          flags[i] = false;
+          currLoad += weight;
+          leftProducts--;
+          int productIndex = 0;
+          while (productID[productIndex] >= 0 && productID[productIndex] != itemIndex[i]) {
+            productIndex++;
+          }
+          if (productID[productIndex] < 0) {
+            productID[productIndex] = itemIndex[i];
+          }
+          productNum[productIndex]++;
         }
-        boolean[] flags=new boolean[numOfOrders];
-        for(i=0; i<numOfOrders; i++){
-            flags[i]=true;
-        }
-        int orderLeft=numOfOrders;
-        for(i=0; i<game.num_drones; i++){
-            dronex[i]=game.getWareHouse(0).getxCoord();
-            droney[i]=game.getWareHouse(0).getyCoord();
-            droneAvailable[i]=0;
-        }
-        while(orderLeft>0){
-            int leastIndex=-1;
-            for(i=0; i<numOfOrders; i++){
-                if(flags[i] && (leastIndex==-1 || droneTurns[leastIndex]>droneTurns[i])){
-                    leastIndex=i;
-                }
-            }
-            int droneID=0;
-            for(i=0; i<game.num_drones; i++){
-                if(droneAvailable[i]<droneAvailable[droneID]){
-                    droneID=i;
-                }
-            }
-            if(droneTurns[leastIndex]+droneAvailable[droneID]>=game.getMaxTurns()){
-            	break;
-            }
-            commands.addAll(delivery(game, game.getDrone(droneID), game.getWareHouse(0), orders[leastIndex], game.getMaxCapacity()));
-            droneAvailable[droneID]+=droneTurns[leastIndex];
-            flags[leastIndex]=false;
-            orderLeft--;
-        }
-        return commands;
+      }
+      // load bins and send
+      int productIndex = 0;
+      while (productIndex < productID.length && productID[productIndex] >= 0) {
+        Command c = new LoadCommand(drone, wareHouse, game.getProductType(productID[productIndex]),
+            productNum[productIndex]);
+        commands.add(c);
+        productIndex++;
+      }
+      productIndex = 0;
+      while (productIndex < productID.length && productID[productIndex] >= 0) {
+        Command c = new DeliverCommand(drone, order, game.getProductType(productID[productIndex]),
+            productNum[productIndex]);
+        commands.add(c);
+        productIndex++;
+      }
     }
+    return commands;
+  }
+
+  public static ArrayList<Command> greedy(Game game) {
+    // sort orders
+    int numOfOrders = game.getOrders().size();
+    int[] droneTurns = new int[numOfOrders];
+    int numberOfDrones = game.getDrones().size();
+
+    int[] dronex = new int[numberOfDrones];
+    int[] droney = new int[numberOfDrones];
+    int[] droneAvailable = new int[numberOfDrones];
+    ArrayList<Command> commands = new ArrayList<Command>();
+    int i = 0;
+    for (i = 0; i < game.getOrders().size(); i++) {
+      Order order = game.getOrder(i);
+      droneTurns[i] = Command.getNormalizedDistance(game.getWareHouse(0), order)
+          * (numOfBins(game, order, game.getMaxCapacity()) * 2) + order.getNumItems() * 2;
+    }
+    boolean[] flags = new boolean[numOfOrders];
+    for (i = 0; i < numOfOrders; i++) {
+      flags[i] = true;
+    }
+    int orderLeft = numOfOrders;
+    for (i = 0; i < numberOfDrones; i++) {
+      dronex[i] = game.getWareHouse(0).getXCoord();
+      droney[i] = game.getWareHouse(0).getYCoord();
+      droneAvailable[i] = 0;
+    }
+    while (orderLeft > 0) {
+      int leastIndex = -1;
+      for (i = 0; i < numOfOrders; i++) {
+        if (flags[i] && (leastIndex == -1 || droneTurns[leastIndex] > droneTurns[i])) {
+          leastIndex = i;
+        }
+      }
+      int droneID = 0;
+      for (i = 0; i < numberOfDrones; i++) {
+        if (droneAvailable[i] < droneAvailable[droneID]) {
+          droneID = i;
+        }
+      }
+      if (droneTurns[leastIndex] + droneAvailable[droneID] >= game.getMaxTurns()) {
+        break;
+      }
+      commands.addAll(delivery(game, game.getDrone(droneID), game.getWareHouse(0),
+          game.getOrder(leastIndex), game.getMaxCapacity()));
+      droneAvailable[droneID] += droneTurns[leastIndex];
+      flags[leastIndex] = false;
+      orderLeft--;
+    }
+    return commands;
+  }
 }
