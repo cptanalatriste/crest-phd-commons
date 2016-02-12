@@ -2,6 +2,7 @@ package crest.commons;
 
 import crest.commons.solution.Command;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ public class Drone implements Trackable {
 
   public Drone(int id, int x, int y) {
     identifier = id;
+    this.commands = new ArrayList<Command>();
     setYPos(x);
     setYPos(y);
   }

@@ -11,6 +11,7 @@ import crest.commons.WareHouse;
 import crest.commons.solution.Command;
 import crest.commons.solution.DeliverCommand;
 import crest.commons.solution.LoadCommand;
+import crest.commons.solution.SolutionRepresentation;
 
 import java.util.ArrayList;
 
@@ -44,8 +45,8 @@ public class Greedy {
     return numBins;
   }
 
-  public static ArrayList<Command> delivery(Game game, Drone drone, WareHouse wareHouse,
-      Order order, int capacity) {
+  public static void delivery(Game game, Drone drone, WareHouse wareHouse, Order order,
+      int capacity) {
     int currLoad = 0;
     int numItems = order.getNumItems();
     boolean[] flags = new boolean[numItems];
@@ -96,10 +97,11 @@ public class Greedy {
         productIndex++;
       }
     }
-    return commands;
+
+    drone.getCommands().addAll(commands);
   }
 
-  public static ArrayList<Command> greedy(Game game) {
+  public static SolutionRepresentation greedy(Game game) {
     // sort orders
     int numOfOrders = game.getOrders().size();
     int[] droneTurns = new int[numOfOrders];
@@ -108,7 +110,6 @@ public class Greedy {
     int[] dronex = new int[numberOfDrones];
     int[] droney = new int[numberOfDrones];
     int[] droneAvailable = new int[numberOfDrones];
-    ArrayList<Command> commands = new ArrayList<Command>();
     int i = 0;
     for (i = 0; i < game.getOrders().size(); i++) {
       Order order = game.getOrder(i);
@@ -141,12 +142,12 @@ public class Greedy {
       if (droneTurns[leastIndex] + droneAvailable[droneID] >= game.getMaxTurns()) {
         break;
       }
-      commands.addAll(delivery(game, game.getDrone(droneID), game.getWareHouse(0),
-          game.getOrder(leastIndex), game.getMaxCapacity()));
+      delivery(game, game.getDrone(droneID), game.getWareHouse(0), game.getOrder(leastIndex),
+          game.getMaxCapacity());
       droneAvailable[droneID] += droneTurns[leastIndex];
       flags[leastIndex] = false;
       orderLeft--;
     }
-    return commands;
+    return new SolutionRepresentation(game.getDrones());
   }
 }
