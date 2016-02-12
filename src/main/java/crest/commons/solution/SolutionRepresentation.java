@@ -11,8 +11,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 public class SolutionRepresentation {
+
+  private static Logger logger = Logger.getLogger(SolutionRepresentation.class.getName());
 
   private List<Drone> dronesWithCommands;
   private int numberOfCommands;
@@ -38,7 +41,10 @@ public class SolutionRepresentation {
 
   public void run(IGame game) {
     for (int i = 0; i < game.getMaxTurns(); i++) {
+      logger.info("Processing turn " + i);
+
       for (Drone d : game.getDrones()) {
+        logger.info("Turn " + i + " for Drone " + d.getId());
         d.applyTurn(game);
         game.setCurrentTurn(game.getCurrentTurn() + 1);
       }

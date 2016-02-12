@@ -16,5 +16,8 @@ public class App {
     Game problem = FileIOUtil.readProblemFile("mother_of_all_warehouses.in");
     SolutionRepresentation result = Greedy.greedy(problem);
     result.generateProgramFile(Paths.get("moaw_plus.out"));
+    
+    result.run(problem);
+    System.out.println("Simulation finished");
   }
 }
